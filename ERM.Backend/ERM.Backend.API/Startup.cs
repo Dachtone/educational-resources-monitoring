@@ -16,6 +16,7 @@ namespace ERM.Backend.API
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,27 +29,26 @@ namespace ERM.Backend.API
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddCors(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ERM.Backend.API", Version = "v1" });
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                builder =>
+                                {
+                                    builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                                });
             });
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ERM.Backend.API v1"));
-            }
+            app.UseCors(MyAllowSpecificOrigins);
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ERM.Backend.Data\ERM.Backend.Data.csproj" />
     <ProjectReference Include="..\ERM.Backend.Entities\ERM.Backend.Entities.csproj" />
   </ItemGroup>
