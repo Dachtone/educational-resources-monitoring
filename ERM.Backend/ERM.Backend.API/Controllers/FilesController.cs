@@ -28,7 +28,7 @@ namespace ERM.Backend.API.Controllers
         }
 
         [HttpGet("get-all-directions-subjects")]
-        public Dictionary<string, Dictionary<string, List<string>>> GetAllDirectionsSubjects()
+        public Dictionary<string, Dictionary<string, List<object>>> GetAllDirectionsSubjects()
         {
             Subjects subjects = new Subjects();
             return subjects.GetAll();

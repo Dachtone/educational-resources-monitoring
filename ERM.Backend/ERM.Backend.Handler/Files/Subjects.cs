@@ -7,19 +7,19 @@ namespace ERM.Backend.Handler.Files
 {
     public class Subjects
     {
-        public Dictionary<string, Dictionary<string, List<string>>> GetAll()
+        public Dictionary<string, Dictionary<string, List<object>>> GetAll()
         {
             var allDirections = new DirectionInfo().GetAllFullNames();
             bool contentIsStart = false;
 
-            Dictionary<string, Dictionary<string, List<string>>> content = new Dictionary<string, Dictionary<string, List<string>>>();
+            Dictionary<string, Dictionary<string, List<object>>> content = new Dictionary<string, Dictionary<string, List<object>>>();
             foreach (var direction in allDirections)
             {
                 contentIsStart = false;
-                Dictionary<string, List<string>> currentDirection = new Dictionary<string, List<string>>();
+                Dictionary<string, List<object>> currentDirection = new Dictionary<string, List<object>>();
                 foreach (var row in new XLWorkbook(direction).Worksheet(1).Rows())
                 {
-                    if (row.Cells().Any(c => c.GetString().Contains("Блок 1")))
+                    if (row.Cells().Any(c => c.GetString().ToLower().Contains("план учебного процесса")))
                         contentIsStart = true;
 
                     if (row.Cells().Any(c => c.GetString().Contains("Факультативные дисциплины")))
@@ -38,7 +38,7 @@ namespace ERM.Backend.Handler.Files
                                     if (codeIsSkiped)
                                     {
                                         subject = cell.GetString();
-                                        currentDirection[subject] = new List<string>();
+                                        currentDirection[subject.Trim()] = new List<object>();
                                     }
                                     else
                                     {
@@ -47,7 +47,17 @@ namespace ERM.Backend.Handler.Files
                                 }
                                 else
                                 {
-                                    currentDirection[subject].Add(cell.GetString());
+                                    var currentColumn = cell.WorksheetColumn();
+                                    string columnName = "";
+                                    for (int index = cell.Address.RowNumber - 1; index > 0; index--)
+                                    {
+                                        if (currentColumn.Cell(index).GetString().Split(new char[] { ',', ' ' }).Any(c => !int.TryParse(c, out _)))
+                                        {
+                                            columnName = currentColumn.Cell(index).GetString();
+                                            break;
+                                        }
+                                    }
+                                    currentDirection[subject.Trim()].Add(new { Name = columnName, Value = cell.GetString() });
                                 }
                             }
                         }
