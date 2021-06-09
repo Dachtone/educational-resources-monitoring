@@ -6,7 +6,7 @@ const { Header, Content } = AntdLayout
 
 export const Layout: React.FC = (props: any) => {
     return (
-        <AntdLayout style={{ height: '100vh' }}>
+        <AntdLayout style={{ minHeight: '100vh' }}>
             <Header className="header">
                 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1">
@@ -25,19 +25,16 @@ export const Layout: React.FC = (props: any) => {
                     </Menu.Item>
                 </Menu>
             </Header>
-            <AntdLayout>
-                <AntdLayout style={{ padding: '0 24px 24px' }}>
-                    <Content
-                        className="site-AntdLayout-background"
-                        style={{
-                            padding: 24,
-                            margin: 0,
-                            minHeight: 280,
-                        }}
-                    >
-                        {props?.children}
-                    </Content>
-                </AntdLayout>
+            <AntdLayout style={{ padding: '0 24px 24px', minHeight: '100vh' }}>
+                <Content
+                    style={{
+                        padding: 24,
+                        margin: 0,
+                        minHeight: '100%',
+                    }}
+                >
+                    {props?.children}
+                </Content>
             </AntdLayout>
         </AntdLayout>
     )

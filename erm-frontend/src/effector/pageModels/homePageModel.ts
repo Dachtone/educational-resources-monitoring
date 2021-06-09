@@ -1,12 +1,12 @@
 import { DirectionsStore } from './../Directions/store'
 import React from 'react'
 import { useStore } from 'effector-react'
-import { createEvent, forward } from 'effector'
-import { getDirections } from '../Directions/events'
+import { createEvent } from 'effector'
 
 const pageLoaded = createEvent()
 
-forward({ from: pageLoaded, to: getDirections })
+// if u want fetch data uncomment these lines
+// forward({ from: pageLoaded, to: getDirections })
 
 const homePageModel = () => {
     React.useEffect(() => {

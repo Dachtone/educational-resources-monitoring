@@ -1,5 +1,5 @@
+import { getDirections } from '../effector/Directions/events'
 import { DegreeApi } from '../utils/api/degreeApi'
-import { getDirections } from '../utils/effector/Directions/events'
 // import { getDegree } from '../utils/effector/currentDegree/events'
 
 const EffectorInitializer = (props: { children: any }) => {

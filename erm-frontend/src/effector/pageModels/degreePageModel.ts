@@ -1,10 +1,10 @@
-import { IDirection } from './../../../customTypes/direction'
-import { DirectionsStore } from './../Directions/store'
 import React from 'react'
 import { useStore } from 'effector-react'
 import { createEvent, forward } from 'effector'
+import { DirectionsStore } from './../Directions/store'
 import { getDirections } from '../Directions/events'
-import { degreesTransl } from '../../../customTypes/degrees'
+import { degreesTransl } from '../../customTypes/degrees'
+import { IDirection } from '../../customTypes/direction'
 
 const pageLoaded = createEvent()
 

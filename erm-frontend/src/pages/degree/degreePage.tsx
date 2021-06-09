@@ -1,10 +1,10 @@
 import React from 'react'
-import { Card, List } from 'antd'
 import { useParams } from 'react-router'
-import { degreesDecoded } from '../../customTypes/degrees'
+import { List } from 'antd'
 import { IDirection } from '../../customTypes/direction'
 import { Layout } from '../../ui/layout'
-import degreePageModel from '../../utils/effector/pageModels/degreePageModel'
+import degreePageModel from '../../effector/pageModels/degreePageModel'
+import { DirectionCard } from '../../ui/directionCard'
 
 export const DegreePage: React.FC = () => {
     const { degreeName } = useParams<{ degreeName: string }>()
@@ -15,11 +15,7 @@ export const DegreePage: React.FC = () => {
             <List
                 grid={{ gutter: 16, column: 4 }}
                 dataSource={degreeDirections}
-                renderItem={(item: IDirection) => (
-                    <List.Item>
-                        <Card title={`${(degreesDecoded as any)[item.degree]}-${item.code}`}>{item.name}</Card>
-                    </List.Item>
-                )}
+                renderItem={(item: IDirection) => <DirectionCard direction={item} />}
             />
         </Layout>
     )
